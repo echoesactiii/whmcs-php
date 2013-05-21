@@ -16,7 +16,7 @@ Functions will return a PHP stdClass object with the results retrieved from WHMC
 ---
 This is mostly being developed inline with a project for CCPG Solutions (http://ccpg.co.uk) - thank me, buy hosting! :) As a result most of the functionality is being implemented in the order I need it, which is not necessarily this order:
 
-* Client Management: Add client, update client, update domain, upgrade product, send email.
+* Client Management: update domain, upgrade product, send email.
 * Payments: Get invoices
 * Orders: Get orders, Add order.
 

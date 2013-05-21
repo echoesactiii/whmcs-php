@@ -141,6 +141,42 @@ class WHMCS {
 		return $this->api("getcredits", array("clientid" => $uid));
 	}
 
+	public function updateClient($uid = 0, $update){
+		$attributes = array("firstname", "lastname", "companyname", "email", "address1", "address2", "city", "state", "postcode", "country", "phonenunber", "password2", "credit", "taxexempt", "notes", "cardtype", "cardnum", "expdate", "startdate", "issuenumber", "language", "customfields", "status", "latefeeoveride", "overideduenotices", "disableautocc");
+	
+		foreach($attributes as $k){
+			$params[$k] = $update[$k];
+		}
+
+		$params['clientid'] = $uid;
+
+		$response = $this->api("updateclient", $params);
+
+		if($response->result == 'error'){
+			throw new WhmcsException("WHMCS complained: ".$response->message);
+		}
+	}
+
+	public function addClient($customer){
+		$attributes = array("firstname", "lastname", "companyname", "email", "address1", "address2", "city", "state", "postcode", "country", "phonenunber", "password2", "currency", "clientip", "language", "groupid", "securityqid", "securityqans", "notes", "cctype", "cardnum", "expdate", "startdate", "issuenumber", "customfields", "noemail", "skipvalidation");
+	
+		foreach($attributes as $k){
+			$params[$k] = $update[$k];
+		}
+
+		if($customer['skipvalidation'] != true){
+			if(!$customer['firstname'] || !$customer['lastname'] || !$customer['email'] || !$customer['address1'] || !$customer['city'] || !$customer['state'] || !$customer['postcode'] || !$customer['country'] || !$customer['phonenumber'] || !$customer['password2']){
+				throw new WhmcsException("Required fields missing.");
+			}
+		}
+
+		$response = $this->api("addclient", $params);
+
+		if($response->result == 'error'){
+			throw new WhmcsException("WHMCS complained: ".$response->message);
+		}
+	}	
+
 	public function getClient($uid = 0, $email = ''){
 		if($uid > 0){
 			$params = array("clientid" => $uid);
