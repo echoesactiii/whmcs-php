@@ -197,6 +197,35 @@ class WHMCS {
 		return $response;
 	}
 
+	public function getOrders($uid = 0, $orderId = 0, $status = '', $start = 0, $limit = 0){
+		if($uid > 0){
+			$params['userid'] = $uid;
+		}
+
+		if($orderId > 0){
+			$params['id'] = $invoiceId;
+		}
+
+		if($status == "Pending" || $status == "Active" || $status == "Fraud" || $status == "Cancelled"){
+			$params['status'] = $status;
+		}
+
+		if(!$limit <= 0){
+			$limit = 9999;
+		}
+
+		$params['limitnum'] = $limit;
+		$params['limitstart'] = $start;
+
+		$response = $this->api("getorders", $params);
+
+		if($response->result == 'error'){
+			throw new WhmcsException("WHMCS complained: ".$response->message);
+		}
+
+		return $response;
+	}
+
 	public function getStats(){
 		$response = $this->api("getstats", $params);
 
