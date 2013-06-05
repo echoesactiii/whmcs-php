@@ -196,6 +196,17 @@ class WHMCS {
 
 		return $response;
 	}
+
+	public function getStats(){
+		$response = $this->api("getstats", $params);
+
+		if($response->result == 'error'){
+			throw new WhmcsException("WHMCS complained: ".$response->message);
+		}
+
+		return $response;
+	}
+
 	private function api($action, $params){
 		$postfields = array();
 		$postfields['username'] = $this->username;
