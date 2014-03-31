@@ -50,6 +50,39 @@ class WHMCS {
 
 		return $response;
 	}
+	
+	public function getDomainNameservers($domainId){
+	    $params['domainid'] = $domainId;
+	    $response = $this->api("domaingetnameservers", $params);
+
+		if($response->result == 'error'){
+			throw new WhmcsException("WHMCS complained: ".$response->message);
+		}
+
+		return $response;
+	}
+	
+	public function getDomainLock($domainId){
+	    $params['domainid'] = $domainId;
+	    $response = $this->api("domaingetlockingstatus", $params);
+
+		if($response->result == 'error'){
+			throw new WhmcsException("WHMCS complained: ".$response->message);
+		}
+
+		return $response;	    
+	}
+	
+	public function getDomainWHOIS($domainId){
+        $params['domainid'] = $domainId;
+	    $response = $this->api("domaingetwhoisinfo", $params);
+
+		if($response->result == 'error'){
+			throw new WhmcsException("WHMCS complained: ".$response->message);
+		}
+
+		return $response;
+	}
 
 	public function getServices($uid = 0, $serviceId = 0, $domain = '', $productId = 0, $serviceUsername = '', $start = 0, $limit = 0){
 		if($limit <= 0){
