@@ -234,6 +234,31 @@ class WHMCS {
 		return $this->api("getinvoice", array("invoiceid" => $invoiceid));
 	}
 	
+	public function getInvoices($uid = 0, $status = '', $start = 0, $limit = 0){
+		if($uid > 0){
+			$params['userid'] = $uid;
+		}
+
+		if($status == "Unpaid" || $status == "Paid" || $status == "Refunded" || $status == "Cancelled" || $status == "Collections"){
+			$params['status'] = $status;
+		}
+
+		if(!$limit <= 0){
+			$limit = 9999;
+		}
+
+		$params['limitnum'] = $limit;
+		$params['limitstart'] = $start;
+
+		$response = $this->api("getinvoices", $params);
+
+		if($response->result == 'error'){
+			throw new WhmcsException("WHMCS complained: ".$response->message);
+		}
+
+		return $response;
+	}
+	
 	public function addInvoicePayment($invoiceid, $txid, $amount = 0, $gateway, $date = ''){
 		if($amount > 0){
 			$params['amount'] = $amount;
