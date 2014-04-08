@@ -17,6 +17,7 @@ This is now available via composer, and can be included by creating a file calle
 	}
 	
 Then you can run 'composer install' to install it, assuming you've installed composer. See https://getcomposer.org/ for info.
+Alternatively, check out the repository and include whmcs.class.php if you do not use composer.
 
 ##Setup
 
