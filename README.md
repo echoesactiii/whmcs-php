@@ -21,7 +21,7 @@ Alternatively, check out the repository and include whmcs.class.php if you do no
 
 ##Setup
 
-     $whmcs = new WHMCS('https://whmcs-example.com/includes/api.php', 'api-user', 'password', 'optional-access-key');
+    $whmcs = new WHMCS('https://whmcs-example.com/includes/api.php', 'api-user', 'password', 'optional-access-key');
 
 The URL should point to your WHMCS install's `api.php` file (usually in `includes/`). `api-user` is the username of the WHMCS administrator the API will be using, and `password` should be that user's password. If you are using the API access key instead of IP-filtering with WHMCS, specify the access key as well (`optional-access-key`), otherwise, leave it off/null. (For more information about the access key, see http://docs.whmcs.com/API:Access_Keys)
 
