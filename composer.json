@@ -6,7 +6,7 @@
     },
     "autoload": {
         "classmap": [
-            "ccpginternal.class.php"    
+            "whmcs.class.php"    
         ]
     }
 }
