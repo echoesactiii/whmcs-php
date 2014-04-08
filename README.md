@@ -2,6 +2,20 @@
 
 This is a simple class which allows you to interact with the WHMCS API using PHP.
 
+##Installation
+
+This is now available via composer, and can be included by creating a file called composer.json in the root with the contents:
+    {
+        "name": "you/yourappname",
+        "description": "Your app description",
+        "version": "1.0",
+        "homepage": "http://www.yoursite.tld",
+    	"require": {
+    	   "cmantito/whmcs-php": "dev-master"
+    	}
+	}
+Then you can run 'composer install' to install it, assuming you've installed composer. See https://getcomposer.org/ for info.
+
 ##Setup
 
      $whmcs = new WHMCS('https://whmcs-example.com/includes/api.php', 'api-user', 'password', 'optional-access-key');
