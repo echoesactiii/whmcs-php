@@ -1,0 +1,7 @@
+{
+    "name": "cmantito/whmcs-php",
+    "description": "PHP class for interacting with the WHMCS API.",
+    "require": {
+        "php": ">=5.3.0"
+    }
+}
