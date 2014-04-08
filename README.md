@@ -5,6 +5,7 @@ This is a simple class which allows you to interact with the WHMCS API using PHP
 ##Installation
 
 This is now available via composer, and can be included by creating a file called composer.json in the root with the contents:
+
     {
         "name": "you/yourappname",
         "description": "Your app description",
@@ -14,6 +15,7 @@ This is now available via composer, and can be included by creating a file calle
     	   "cmantito/whmcs-php": "dev-master"
     	}
 	}
+	
 Then you can run 'composer install' to install it, assuming you've installed composer. See https://getcomposer.org/ for info.
 
 ##Setup
