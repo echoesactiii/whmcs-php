@@ -309,6 +309,51 @@ class WHMCS {
 
 		return $response;
 	}
+	
+	public function addOrder($uid, $productdata, $paymentmethod, $clientip, $promocode = null, $affid = null, $noemail = false, $noinvoice = false, $noinvoiceemail = false, $otherparams){
+	    if($promocode){
+	        $params['promocode'] = $promocode;
+	    }
+	    if($affid){
+	        $params['affid'] = $affid;
+	    }
+	    if($noemail){
+	        $params['noemail'] = "true";
+	    }
+	    if($noinvoice){
+	        $params['noinvoice'] = "true";
+	    }
+	    if($noinvoiceemail){
+	        $params['noinvoiceemail'] = "true";
+	    }
+	    
+	    $params['clientid'] = $uid;
+	    $params['paymentmethod'] = $paymentmethod;
+	    $params['clientip'] = $clientip;
+	    
+	    $i = 0;
+	    foreach($productdata as $product){
+	        foreach($product as $key => $val){
+	            if($key == "customfields" || $key == "configoptions" || $key == "domainfields"){
+	                $val = base64_encode(serialize($val));
+	            }
+	            $params[$key.'['.$i.']'] = $val;
+	        }
+	        $i++;
+	    }
+	    
+	    foreach($otherparams as $key => $val){
+	        $params[$key] = $val;
+	    }
+	    
+	    $response = $this->api('addorder', $params);
+	    
+		if($response->result == 'error'){
+			throw new WhmcsException("WHMCS complained: ".$response->message);
+		}
+
+		return $response;	    
+	}
 
 	public function getStats(){
 		$response = $this->api("getstats", $params);
