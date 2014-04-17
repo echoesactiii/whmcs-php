@@ -175,10 +175,12 @@ class WHMCS {
 	}
 
 	public function updateClient($uid = 0, $update){
-		$attributes = array("firstname", "lastname", "companyname", "email", "address1", "address2", "city", "state", "postcode", "country", "phonenunber", "password2", "credit", "taxexempt", "notes", "cardtype", "cardnum", "expdate", "startdate", "issuenumber", "language", "customfields", "status", "latefeeoveride", "overideduenotices", "disableautocc");
+		$attributes = array("firstname", "lastname", "companyname", "email", "address1", "address2", "city", "state", "postcode", "country", "phonenumber", "password2", "credit", "taxexempt", "notes", "cardtype", "cardnum", "expdate", "startdate", "issuenumber", "language", "customfields", "status", "latefeeoveride", "overideduenotices", "disableautocc");
 	
 		foreach($attributes as $k){
-			$params[$k] = $update[$k];
+		    if(isset($update[$k])){
+			    $params[$k] = $update[$k];
+		    }
 		}
 
 		$params['clientid'] = $uid;
