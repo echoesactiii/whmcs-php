@@ -196,7 +196,7 @@ class WHMCS {
 		$attributes = array("firstname", "lastname", "companyname", "email", "address1", "address2", "city", "state", "postcode", "country", "phonenunber", "password2", "currency", "clientip", "language", "groupid", "securityqid", "securityqans", "notes", "cctype", "cardnum", "expdate", "startdate", "issuenumber", "customfields", "noemail", "skipvalidation");
 	
 		foreach($attributes as $k){
-			$params[$k] = $update[$k];
+			$customer[$k] = $update[$k];
 		}
 
 		if($customer['skipvalidation'] != true){
@@ -205,7 +205,7 @@ class WHMCS {
 			}
 		}
 
-		$response = $this->api("addclient", $params);
+		$response = $this->api("addclient", $customer);
 
 		if($response->result == 'error'){
 			throw new WhmcsException("WHMCS complained: ".$response->message);
