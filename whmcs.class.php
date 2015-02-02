@@ -192,11 +192,11 @@ class WHMCS {
 		}
 	}
 
-	public function addClient($customer){
+	public function addClient($data){
 		$attributes = array("firstname", "lastname", "companyname", "email", "address1", "address2", "city", "state", "postcode", "country", "phonenunber", "password2", "currency", "clientip", "language", "groupid", "securityqid", "securityqans", "notes", "cctype", "cardnum", "expdate", "startdate", "issuenumber", "customfields", "noemail", "skipvalidation");
 	
 		foreach($attributes as $k){
-			$customer[$k] = $update[$k];
+			$customer[$k] = $data[$k];
 		}
 
 		if($customer['skipvalidation'] != true){
