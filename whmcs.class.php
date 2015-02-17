@@ -190,6 +190,8 @@ class WHMCS {
 		if($response->result == 'error'){
 			throw new WhmcsException("WHMCS complained: ".$response->message);
 		}
+
+		return $response;
 	}
 
 	public function addClient($data){
@@ -210,6 +212,8 @@ class WHMCS {
 		if($response->result == 'error'){
 			throw new WhmcsException("WHMCS complained: ".$response->message);
 		}
+
+		return $response;
 	}	
 
 	public function getClient($uid = 0, $email = ''){
