@@ -316,7 +316,7 @@ class WHMCS {
 		return $response;
 	}
 	
-	public function addOrder($uid, $productdata, $paymentmethod, $clientip, $promocode = null, $affid = null, $noemail = false, $noinvoice = false, $noinvoiceemail = false, $otherparams){
+	public function addOrder($uid, $productdata, $paymentmethod, $clientip, $promocode = null, $affid = null, $noemail = false, $noinvoice = false, $noinvoiceemail = false, $otherparams = null){
 	    if($promocode){
 	        $params['promocode'] = $promocode;
 	    }
