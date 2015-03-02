@@ -84,6 +84,28 @@ class WHMCS {
 		return $response;
 	}
 
+	public function getProducts($pid = 0, $gid = 0, $module = null){
+		if($pid > 0){
+			$params['pid'] = $pid;
+		}
+
+		if($gid > 0){
+			$params['gid'] = $gid;
+		}
+
+		if($module != null){
+			$params['module'] = $module;
+		}
+
+		$repsonse = $this->api("getproducts", $params);
+
+		if($response->result == 'error'){
+			throw new WhmcsException("WHMCS complained: ".$response->message);
+		}
+
+		return $response;
+	}
+
 	public function getServices($uid = 0, $serviceId = 0, $domain = '', $productId = 0, $serviceUsername = '', $start = 0, $limit = 0){
 		if($limit <= 0){
 			$limit = 9999;
