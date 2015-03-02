@@ -97,7 +97,7 @@ class WHMCS {
 			$params['module'] = $module;
 		}
 
-		$repsonse = $this->api("getproducts", $params);
+		$response = $this->api("getproducts", $params);
 
 		if($response->result == 'error'){
 			throw new WhmcsException("WHMCS complained: ".$response->message);
