@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * WHMCS PHP
+ * @author Kay Leacock
+ */
 class WHMCS {
 	public $url;
 	public $username;
@@ -13,6 +17,12 @@ class WHMCS {
 		$this->accesskey = $accesskey;
 	}
 
+        /**
+         * Verify the authentication details
+         * @param string $username
+         * @param string $password
+         * @return boolean
+         */
 	public function authenticate($username, $password){
 		$response = $this->api("validatelogin", array("email" => $username, "password2" => $password));
 		if($response->userid){
@@ -22,6 +32,17 @@ class WHMCS {
 		return false;
 	}
 
+        /**
+         * Get Domains
+         * @param int $uid
+         * @param int $domainId
+         * @param string $domain
+         * @param int $start
+         * @param int $limit
+         * @return object
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Get_Clients_Domains
+         */
 	public function getDomains($uid = 0, $domainId = 0, $domain = '', $start = 0, $limit = 0){
 		if($limit <= 0){
 			$limit = 9999;
@@ -51,6 +72,13 @@ class WHMCS {
 		return $response;
 	}
 	
+        /**
+         * Get Domain Nameservers
+         * @param int $domainId
+         * @return object
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Domain_Nameservers
+         */
 	public function getDomainNameservers($domainId){
 	    $params['domainid'] = $domainId;
 	    $response = $this->api("domaingetnameservers", $params);
@@ -62,6 +90,13 @@ class WHMCS {
 		return $response;
 	}
 	
+        /**
+         * Get domainlock
+         * @param int $domainId
+         * @return object
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Domain_Locking_Status
+         */
 	public function getDomainLock($domainId){
 	    $params['domainid'] = $domainId;
 	    $response = $this->api("domaingetlockingstatus", $params);
@@ -73,6 +108,13 @@ class WHMCS {
 		return $response;	    
 	}
 	
+        /**
+         * Get domain WHOIS
+         * @param int $domainId
+         * @return object
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Get_Domain_WHOIS
+         */
 	public function getDomainWHOIS($domainId){
         $params['domainid'] = $domainId;
 	    $response = $this->api("domaingetwhoisinfo", $params);
@@ -84,6 +126,15 @@ class WHMCS {
 		return $response;
 	}
 
+        /**
+         * Get products
+         * @param int $pid
+         * @param int $gid
+         * @param string $module
+         * @return object
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Get_Products
+         */
 	public function getProducts($pid = 0, $gid = 0, $module = null){
 		if($pid > 0){
 			$params['pid'] = $pid;
@@ -106,6 +157,19 @@ class WHMCS {
 		return $response;
 	}
 
+        /**
+         * Get Services
+         * @param int $uid
+         * @param int $serviceId
+         * @param string $domain
+         * @param int $productId
+         * @param string $serviceUsername
+         * @param int $start
+         * @param int $limit
+         * @return object
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Get_Clients_Products
+         */
 	public function getServices($uid = 0, $serviceId = 0, $domain = '', $productId = 0, $serviceUsername = '', $start = 0, $limit = 0){
 		if($limit <= 0){
 			$limit = 9999;
@@ -143,6 +207,15 @@ class WHMCS {
 		return $response;
 	}
 
+        /**
+         * Get Transactions
+         * @param int $uid
+         * @param int $invoiceId
+         * @param int $transactionId
+         * @return object
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Get_Transactions
+         */
 	public function getTransactions($uid = 0, $invoiceId = 0, $transactionId = 0){
 		if($uid > 0){
 			$params['clientid'] = $uid;
@@ -165,6 +238,17 @@ class WHMCS {
 		return $response;
 	}
 
+        /**
+         * Get Emails
+         * @param int $uid Client ID
+         * @param string $filter
+         * @param string $filterdate
+         * @param int $start
+         * @param int $limit
+         * @return object
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Get_Emails
+         */
 	public function getEmails($uid, $filter = '', $filterdate = '', $start = 0, $limit = 0){
 		$params['clientid'] = $uid;
 
@@ -192,10 +276,24 @@ class WHMCS {
 		return $response;
 	}
 
+        /**
+         * Get Credits
+         * @param id $uid
+         * @return object
+         * @link http://docs.whmcs.com/API:Get_Credits
+         */
 	public function getCredits($uid){
 		return $this->api("getcredits", array("clientid" => $uid));
 	}
 
+        /**
+         * Update Client
+         * @param int $uid
+         * @param array $update Array with parameters, see {@link http://docs.whmcs.com/API:Update_Client#Optional_Attributes}
+         * @return type
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Update_Client
+         */
 	public function updateClient($uid = 0, $update){
 		$attributes = array("firstname", "lastname", "companyname", "email", "address1", "address2", "city", "state", "postcode", "country", "phonenumber", "password2", "credit", "taxexempt", "notes", "cardtype", "cardnum", "expdate", "startdate", "issuenumber", "language", "customfields", "status", "latefeeoveride", "overideduenotices", "disableautocc");
 	
@@ -216,6 +314,13 @@ class WHMCS {
 		return $response;
 	}
 
+        /**
+         * Add Client
+         * @param array $data Array with parameters, see {@link http://docs.whmcs.com/API:Add_Client#Optional_Attributes}
+         * @return object
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Add_Client
+         */
 	public function addClient($data){
 		$attributes = array("firstname", "lastname", "companyname", "email", "address1", "address2", "city", "state", "postcode", "country", "phonenumber", "password2", "currency", "clientip", "language", "groupid", "securityqid", "securityqans", "notes", "cctype", "cardnum", "expdate", "startdate", "issuenumber", "customfields", "noemail", "skipvalidation");
 	
@@ -238,6 +343,14 @@ class WHMCS {
 		return $response;
 	}	
 
+        /**
+         * Get Client
+         * @param int $uid
+         * @param string $email
+         * @return object|boolean
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Get_Clients_Details
+         */
 	public function getClient($uid = 0, $email = ''){
 		if($uid > 0){
 			$params = array("clientid" => $uid);
@@ -258,10 +371,26 @@ class WHMCS {
 		return $response;
 	}
 	
+        /**
+         * Get Invoice details
+         * @param int $invoiceid
+         * @return object
+         * @link http://docs.whmcs.com/API:Get_Invoice
+         */
 	public function getInvoice($invoiceid){
 		return $this->api("getinvoice", array("invoiceid" => $invoiceid));
 	}
 	
+        /**
+         * Get Invoices
+         * @param int $uid
+         * @param string $status
+         * @param int $start
+         * @param int $limit
+         * @return object
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Get_Invoices
+         */
 	public function getInvoices($uid = 0, $status = '', $start = 0, $limit = 0){
 		if($uid > 0){
 			$params['userid'] = $uid;
@@ -287,6 +416,17 @@ class WHMCS {
 		return $response;
 	}
 	
+        /**
+         * Add Invoice Payment
+         * @param int $invoiceid
+         * @param int $txid
+         * @param int $amount
+         * @param type $gateway
+         * @param type $date
+         * @return type
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Add_Invoice_Payment
+         */
 	public function addInvoicePayment($invoiceid, $txid, $amount = 0, $gateway, $date = ''){
 		if($amount > 0){
 			$params['amount'] = $amount;
@@ -309,6 +449,17 @@ class WHMCS {
 		return $response;
 	}
 
+        /**
+         * Get Orders
+         * @param int $uid
+         * @param int $orderId
+         * @param string $status
+         * @param int $start
+         * @param int $limit
+         * @return object
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Get_Orders
+         */
 	public function getOrders($uid = 0, $orderId = 0, $status = '', $start = 0, $limit = 0){
 		if($uid > 0){
 			$params['userid'] = $uid;
@@ -338,6 +489,22 @@ class WHMCS {
 		return $response;
 	}
 	
+        /**
+         * 
+         * @param int $uid
+         * @param array $productdata
+         * @param string $paymentmethod
+         * @param string $clientip
+         * @param string $promocode
+         * @param int $affid
+         * @param boolean $noemail
+         * @param boolean $noinvoice
+         * @param boolean $noinvoiceemail
+         * @param array $otherparams
+         * @return object
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Add_Order
+         */
 	public function addOrder($uid, $productdata, $paymentmethod, $clientip, $promocode = null, $affid = null, $noemail = false, $noinvoice = false, $noinvoiceemail = false, $otherparams = null){
 	    if($promocode){
 	        $params['promocode'] = $promocode;
@@ -383,6 +550,12 @@ class WHMCS {
 		return $response;	    
 	}
 
+        /**
+         * Get Stats
+         * @return object
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Get_Stats
+         */
 	public function getStats(){
 		$response = $this->api("getstats", $params);
 
@@ -393,6 +566,13 @@ class WHMCS {
 		return $response;
 	}
 
+        /**
+         * Excecute API Command
+         * @param string $action Action string
+         * @param array $params Parameter array
+         * @return object
+         * @throws Exception
+         */
 	private function api($action, $params){
 		$postfields = array();
 		$postfields['username'] = $this->username;
