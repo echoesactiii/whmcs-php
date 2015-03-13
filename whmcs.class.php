@@ -290,7 +290,7 @@ class WHMCS {
          * Update Client
          * @param int $uid
          * @param array $update Array with parameters, see {@link http://docs.whmcs.com/API:Update_Client#Optional_Attributes}
-         * @return type
+         * @return object
          * @throws WhmcsException
          * @link http://docs.whmcs.com/API:Update_Client
          */
@@ -421,9 +421,9 @@ class WHMCS {
          * @param int $invoiceid
          * @param int $txid
          * @param int $amount
-         * @param type $gateway
-         * @param type $date
-         * @return type
+         * @param string $gateway
+         * @param string $date
+         * @return object
          * @throws WhmcsException
          * @link http://docs.whmcs.com/API:Add_Invoice_Payment
          */
