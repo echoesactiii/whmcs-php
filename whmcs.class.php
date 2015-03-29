@@ -588,10 +588,7 @@ class WHMCS {
 			$postfields[$k] = $v;
 		}
 
-		$queryString = "";
-		foreach($postfields as $k => $v){
-			$queryString .= $k."=".urlencode($v)."&";
-		}
+		$queryString = http_build_query($postfields);
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $this->url);
