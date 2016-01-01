@@ -537,8 +537,10 @@ class WHMCS {
 	        $i++;
 	    }
 	    
-	    foreach($otherparams as $key => $val){
-	        $params[$key] = $val;
+	    if(isset($otherparams)){
+	    	foreach($otherparams as $key => $val){
+	        	$params[$key] = $val;
+	    	}
 	    }
 	    
 	    $response = $this->api('addorder', $params);
@@ -629,8 +631,10 @@ class WHMCS {
 			$postfields['accesskey'] = $this->accesskey;
 		}
 
-		foreach($params as $k => $v){
-			$postfields[$k] = $v;
+		if(isset($params)){
+			foreach($params as $k => $v){
+				$postfields[$k] = $v;
+			}
 		}
 
 		$queryString = http_build_query($postfields);
