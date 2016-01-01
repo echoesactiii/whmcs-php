@@ -490,7 +490,7 @@ class WHMCS {
 	}
 	
         /**
-         * 
+         * Add order
          * @param int $uid
          * @param array $productdata
          * @param string $paymentmethod
@@ -548,6 +548,51 @@ class WHMCS {
 		}
 
 		return $response;	    
+	}
+
+		/**
+		 * Accept order
+		 * @param int $orderid
+		 * @param int $serverid
+		 * @param string $serviceusername
+		 * @param string $servicepassword
+		 * @param int $registrar
+		 * @param boolean $autosetup
+		 * @param boolean $sendregistrar
+		 * @param boolean $sendemail
+		 * @return object
+		 * @throws WhmcsException
+		 * @link http://docs.whmcs.com/API:Accept_Order
+		 */
+	public function acceptOrder($orderid, $serverid = null, $serviceusername = null, $servicepassword = null, $registrar = null, $autosetup = null, $sendregistrar = null, $sendemail = null){
+		if($serverid){
+			$params['serverid'] = $serverid;
+		}
+		if($serviceusername){
+			$params['serviceusername'] = $serviceusername;
+		}
+		if($servicepassword){
+			$params['servicepassword'] = $servicepassword;
+		}
+		if($registrar){
+			$params['registrar'] = $registrar;
+		}
+		if($autosetup){
+			$params['autosetup'] = $autosetup;
+		}
+		if($sendemail){
+			$params['sendemail'] = $sendemail;
+		}
+
+		$params['orderid'] = $orderid;
+
+		$response = $this->api('acceptorder', $params);
+
+		if($response->result == 'error'){
+			throw new WhmcsException("WHMCS complained: ".$response->message);
+		}
+
+		return $response;
 	}
 
         /**
