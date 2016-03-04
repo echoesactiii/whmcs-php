@@ -277,6 +277,33 @@ class WHMCS {
 	}
 
         /**
+         * Add Credit
+         * @param array $data Array with parameters, see {@link http://docs.whmcs.com/API:Add_Credit#Attributes}
+         * @return object
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Add_Credit
+         */
+	public function addCredit($data){
+		$attributes = array("clientid", "description", "amount");
+
+		foreach($attributes as $k){
+			$credit[$k] = $data[$k];
+		}
+
+		if(!$credit['clientid'] || !$credit['description'] || !$credit['amount']){
+				throw new WhmcsException("Required fields missing.");
+		}
+
+		$response = $this->api("addcredit", $credit);
+
+		if($response->result == 'error'){
+			throw new WhmcsException("WHMCS complained: ".$response->message);
+		}
+
+		return $response;
+	}
+
+        /**
          * Get Credits
          * @param id $uid
          * @return object
