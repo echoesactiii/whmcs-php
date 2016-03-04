@@ -370,6 +370,35 @@ class WHMCS {
 
 		return $response;
 	}
+
+        /**
+         * Add Contact
+         * @param array $data Array with parameters, see {@link http://docs.whmcs.com/API:Add_Contact#Optional_Attributes}
+         * @return object
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Add_Contacts
+         */
+	public function addContact($data){
+		$attributes = array("clientid", "firstname", "lastname", "companyname", "email", "address1", "address2", "city", "state", "postcode", "country", "phonenumber", "password2", "permissions", "generalemails", "productemails", "domainemails", "invoiceemails", "supportemails", "skipvalidation");
+
+		foreach($attributes as $k){
+			$contact[$k] = $data[$k];
+		}
+
+		if($contact['skipvalidation'] != true){
+			if(!$contact['clientid'] || !$contact['firstname'] || !$contact['lastname'] || !$contact['email'] || !$contact['address1'] || !$contact['city'] || !$contact['state'] || !$contact['postcode'] || !$contact['country'] || !$contact['phonenumber'] || !$contact['password2']){
+				throw new WhmcsException("Required fields missing.");
+			}
+		}
+
+		$response = $this->api("addcontact", $contact);
+
+		if($response->result == 'error'){
+			throw new WhmcsException("WHMCS complained: ".$response->message);
+		}
+
+		return $response;
+	}
 	
         /**
          * Get Invoice details
