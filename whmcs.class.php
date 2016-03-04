@@ -444,7 +444,42 @@ class WHMCS {
 
 		return $response;
 	}
-	
+
+        /**
+         * Create Invoice
+         * @param array $data Array with parameters, see {@link http://docs.whmcs.com/API:Create_Invoice}
+         * @return object
+         * @throws WhmcsException
+         * @link http://docs.whmcs.com/API:Create_Invoice
+         */
+	public function createInvoice($data){
+		$attributes = array("userid", "date", "duedate", "paymentmethod",
+			"sendinvoice",
+			// optional
+			"taxrate", "taxrate2", "notes", "sendinvoice",
+			"autoapplycredit");
+
+		foreach($attributes as $a){
+			if(!empty($params[$a])){
+				$params[$a] = $data[$a];
+			}
+		}
+
+		for($i = 0; $i < count($data['items']; $i++)){
+			$params['itemdescription' . $i] = $data['items'][$i]['description'];
+			$params['itemamount' . $i] = $data['items'][$i]['amount'];
+			$params['itemtaxed' . $i] = $data['items'][$i]['taxed'];
+		}
+
+		$response = $this->api("createinvoice", $params);
+
+		if($response->result == 'error'){
+			throw new WhmcsException("WHMCS complained: ".$response->message);
+		}
+
+		return $response;
+	}
+
         /**
          * Add Invoice Payment
          * @param int $invoiceid
