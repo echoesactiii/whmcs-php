@@ -16,8 +16,8 @@ This is now available via composer, and can be included by creating a file calle
     	}
 	}
 	
-Then you can run 'composer install' to install it, assuming you've installed composer. See https://getcomposer.org/ for info.
-Alternatively, check out the repository and include whmcs.class.php if you do not use composer.
+Then you can run `php /path/to/composer.phar install` to install it, assuming you've installed composer. See https://getcomposer.org/ for info.
+Alternatively, clone the repository and use `require_once 'whmcs.class.php';` if you do not use composer.
 
 ##Setup
 
@@ -31,17 +31,17 @@ Functions will return a PHP stdClass object with the results retrieved from WHMC
 
 ##Todo
 
-This is mostly being developed inline with a project for CCPG Solutions (http://ccpg.co.uk) - thank me, buy hosting! :) As a result most of the functionality is being implemented in the order I need it, which is not necessarily this order:
+This is mostly being developed inline with a project for Cadence Networks. As a result most of the functionality is being implemented in the order I need it, which is not necessarily this order:
 
 * Client Management: update domain, upgrade product, send email.
 
 Down the line:
 
-* Client Management: Add/update/delete/get contacts.
+* Client Management: update/delete/get contacts - addContact has recently been added by @hdlopes.
 
-Never:
+Never (unless someone else submits a pull request for it).
 
 * Support tickets. WHMCS's excuse for support tickets is terrible, and you shouldn't use it. No one should. 0:)
 
 ---
-~ Kay (cmantito), http://kaycl.co.uk // CCPG Solutions, http://ccpg.co.uk
+~ Kat, http://twitter.com/b0redofb1nary // Cadence Networks: http://cadence.net.uk
