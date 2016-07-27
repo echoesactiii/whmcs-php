@@ -492,7 +492,7 @@ class WHMCS {
 			}
 		}
 
-		for($i = 0; $i < count($data['items']; $i++)){
+		for($i = 0; $i < count($data['items']); $i++){
 			$params['itemdescription' . $i] = $data['items'][$i]['description'];
 			$params['itemamount' . $i] = $data['items'][$i]['amount'];
 			$params['itemtaxed' . $i] = $data['items'][$i]['taxed'];
