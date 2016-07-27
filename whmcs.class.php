@@ -136,6 +136,8 @@ class WHMCS {
          * @link http://docs.whmcs.com/API:Get_Products
          */
 	public function getProducts($pid = 0, $gid = 0, $module = null){
+	    $params = array();
+
 		if($pid > 0){
 			$params['pid'] = $pid;
 		}
@@ -176,7 +178,7 @@ class WHMCS {
 		}
 
 		$params['limitnum'] = $limit;
-		$params['limitstart'] = $limitstart;
+		//$params['limitstart'] = $limitstart; // TODO: Unused variable
 
 		if($uid > 0){
 			$params['clientid'] = $uid;
@@ -217,6 +219,8 @@ class WHMCS {
          * @link http://docs.whmcs.com/API:Get_Transactions
          */
 	public function getTransactions($uid = 0, $invoiceId = 0, $transactionId = 0){
+        $params = array();
+
 		if($uid > 0){
 			$params['clientid'] = $uid;
 		}
@@ -284,6 +288,8 @@ class WHMCS {
          * @link http://docs.whmcs.com/API:Add_Credit
          */
 	public function addCredit($data){
+        $credit = array();
+
 		$attributes = array("clientid", "description", "amount");
 
 		foreach($attributes as $k){
@@ -305,7 +311,7 @@ class WHMCS {
 
         /**
          * Get Credits
-         * @param id $uid
+         * @param int $uid
          * @return object
          * @link http://docs.whmcs.com/API:Get_Credits
          */
@@ -350,7 +356,9 @@ class WHMCS {
          */
 	public function addClient($data){
 		$attributes = array("firstname", "lastname", "companyname", "email", "address1", "address2", "city", "state", "postcode", "country", "phonenumber", "password2", "currency", "clientip", "language", "groupid", "securityqid", "securityqans", "notes", "cctype", "cardnum", "expdate", "startdate", "issuenumber", "customfields", "noemail", "skipvalidation");
-	
+
+        $customer = array();
+
 		foreach($attributes as $k){
 			$customer[$k] = $data[$k];
 		}
@@ -407,6 +415,8 @@ class WHMCS {
          */
 	public function addContact($data){
 		$attributes = array("clientid", "firstname", "lastname", "companyname", "email", "address1", "address2", "city", "state", "postcode", "country", "phonenumber", "password2", "permissions", "generalemails", "productemails", "domainemails", "invoiceemails", "supportemails", "skipvalidation");
+
+        $contact = array();
 
 		foreach($attributes as $k){
 			$contact[$k] = $data[$k];
@@ -486,6 +496,8 @@ class WHMCS {
 			"taxrate", "taxrate2", "notes", "sendinvoice",
 			"autoapplycredit");
 
+        $params = array();
+
 		foreach($attributes as $a){
 			if(!empty($params[$a])){
 				$params[$a] = $data[$a];
@@ -557,7 +569,7 @@ class WHMCS {
 		}
 
 		if($orderId > 0){
-			$params['id'] = $invoiceId;
+			$params['id'] = $orderId;
 		}
 
 		if($status == "Pending" || $status == "Active" || $status == "Fraud" || $status == "Cancelled"){
@@ -695,6 +707,8 @@ class WHMCS {
          * @link http://docs.whmcs.com/API:Get_Stats
          */
 	public function getStats(){
+	    $params = array();
+
 		$response = $this->api("getstats", $params);
 
 		if($response->result == 'error'){
