@@ -26,7 +26,7 @@ class WHMCS {
 	public function authenticate($username, $password){
 		$response = $this->api("validatelogin", array("email" => $username, "password2" => $password));
 		if($response->userid){
-			return true;
+			return $response->userid; // Same as returning true
 		}
 
 		return false;
