@@ -126,6 +126,28 @@ class WHMCS {
 		return $response;
 	}
 
+    /**
+     * Get product groups - Custom API
+     * @param int $gid
+     * @return object
+     * @throws WhmcsException
+     */
+    public function getProductsGroups($gid = 0){
+        $params = array();
+
+        if($gid > 0){
+            $params['gid'] = $gid;
+        }
+
+        $response = $this->api("getproductgroups", $params);
+
+        if($response->result == 'error'){
+            throw new WhmcsException("WHMCS complained: ".$response->message);
+        }
+
+        return $response;
+    }
+
         /**
          * Get products
          * @param int $pid
