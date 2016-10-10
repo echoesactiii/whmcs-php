@@ -557,7 +557,7 @@ class WHMCS {
 		}
 
 		if($orderId > 0){
-			$params['id'] = $invoiceId;
+			$params['id'] = $orderId;
 		}
 
 		if($status == "Pending" || $status == "Active" || $status == "Fraud" || $status == "Cancelled"){
